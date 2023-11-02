@@ -1,7 +1,21 @@
 // execute as console application
 
+using BethanysPieShop.Models;
+
 // CreateBuilder will ensure Kestrel is included and set up IIS integration
 var builder = WebApplication.CreateBuilder(args);
+
+/*
+ * when using repositories, use AddScoped -> will create a singleton while request is being handled.
+ * -- builder.Services.AddScoped
+ * will create a new instance every time, over and over again
+ * -- builder.Services.AddTransient
+ * will create just one single instance and keep that around
+ * -- builder.Services.AddSingleton
+*/
+
+builder.Services.AddScoped<ICategoryRepository, MockCategoryRepository>();
+builder.Services.AddScoped<IPieRepository, MockPieRepository>();
 
 // add a service - we bring in framework services that enable MVC in our app
 builder.Services.AddControllersWithViews(); // ensure the app knows about ASP.NET Core MVC
