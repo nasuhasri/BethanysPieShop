@@ -1,4 +1,5 @@
 ﻿using BethanysPieShop.Models;
+using BethanysPieShop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BethanysPieShop.Controllers;
@@ -24,11 +25,18 @@ public class PieController : Controller
 
     public IActionResult List()
     {
-        // ViewBag is dynamic - can add whatever property we want (shareable between views and controllers)
-        // view able to access the properties inside the ViewBag
-        ViewBag.CurrentCategory = "Cheese cakes";
+        /*
+         * ViewBag is dynamic - can add whatever property we want (shareable between views and controllers)
+         * view able to access the properties inside the ViewBag
+         * 2 ways passing view; ViewBag and View method
+        */
+        //ViewBag.CurrentCategory = "Cheese cakes";
 
         // the view is being passed as an IEnumerable in pies
-        return View(_pieRepository.AllPies);
+        //return View(_pieRepository.AllPies);
+
+        PieListViewModel pieListViewModel = new PieListViewModel(_pieRepository.AllPies, "Cheese Cakes");
+
+        return View(pieListViewModel);
     }
 }
