@@ -14,8 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
  * will create just one single instance and keep that around
  * -- builder.Services.AddSingleton
 */
-builder.Services.AddScoped<ICategoryRepository, MockCategoryRepository>();
-builder.Services.AddScoped<IPieRepository, MockPieRepository>();
+
+/*
+ * we are not using mock anymore. will be using the PieRepository and CategoryRepository
+*/
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IPieRepository, PieRepository>();
 
 // add a service - we bring in framework services that enable MVC in our app
 builder.Services.AddControllersWithViews(); // ensure the app knows about ASP.NET Core MVC

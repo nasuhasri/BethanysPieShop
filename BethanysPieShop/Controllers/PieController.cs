@@ -15,7 +15,7 @@ public class PieController : Controller
     private readonly IPieRepository _pieRepository;
     private readonly ICategoryRepository _categoryRepository;
 
-    // using constructor injection (the Mock one will be injected)
+    // using constructor injection (the real one will be injected)
     // got the concrete instances after the constructor has run
     public PieController (IPieRepository pieRepository, ICategoryRepository categoryRepository)
     { 
