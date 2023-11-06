@@ -23,7 +23,8 @@
 
                     <div class="d-flex justify-content-between mt-2">
                         <h2 class="text-start">
-                            <a class="pie-link">@pie.Name</a>
+                            @*asp-route-id -> id tu kena sama dgn apa yg define kat parameter in controller*@
+                            <a class="pie-link" asp-controller="Pie" asp-action="Details" asp-route-id="@pie.PieId">@pie.Name</a>
                         </h2>
                         <h5 class="text-nowrap">
                             @pie.Price.ToString("c")

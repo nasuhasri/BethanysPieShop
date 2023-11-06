@@ -49,10 +49,14 @@ if (app.Environment.IsDevelopment())
     // to know our environment, go to properties (right click on the project) > debug > general
 }
 
-// ability to be able to navigate to view (ensure ASP.NET Core able to handle incoming requests correctly)
-// add support for routing to controller and controller actions
-// DefaultControllerRoute is "{controller=Home}/{action=Index}/{id?}"
-// it will match with a pattern like above
+/*
+ * ability to be able to navigate to view (ensure ASP.NET Core able to handle incoming requests correctly)
+ * add support for routing to controller and controller actions
+ * DefaultControllerRoute is "{controller=Home}/{action=Index}/{id?}"
+ * it will match with a pattern like above
+ * if we dont specify the controller and action, default Home and Index will be used
+*/
+
 app.MapDefaultControllerRoute();
 
 // another way of using route but need to do it multiple times

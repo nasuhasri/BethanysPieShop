@@ -35,7 +35,7 @@ public class PieController : Controller
         // the view is being passed as an IEnumerable in pies
         //return View(_pieRepository.AllPies);
 
-        PieListViewModel pieListViewModel = new PieListViewModel(_pieRepository.AllPies, "Cheese Cakes");
+        PieListViewModel pieListViewModel = new PieListViewModel(_pieRepository.AllPies, "All Pies");
 
         return View(pieListViewModel);
     }
