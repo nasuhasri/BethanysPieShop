@@ -52,4 +52,6 @@ if (app.Environment.IsDevelopment())
 // ability to be able to navigate to view (ensure ASP.NET Core able to handle incoming requests correctly)
 app.MapDefaultControllerRoute();
 
+DbInitializer.Seed(app); // app here means applicationBuilder
+
 app.Run();
