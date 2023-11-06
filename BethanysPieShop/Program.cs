@@ -50,7 +50,15 @@ if (app.Environment.IsDevelopment())
 }
 
 // ability to be able to navigate to view (ensure ASP.NET Core able to handle incoming requests correctly)
+// add support for routing to controller and controller actions
+// DefaultControllerRoute is "{controller=Home}/{action=Index}/{id?}"
+// it will match with a pattern like above
 app.MapDefaultControllerRoute();
+
+// another way of using route but need to do it multiple times
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 DbInitializer.Seed(app); // app here means applicationBuilder
 
