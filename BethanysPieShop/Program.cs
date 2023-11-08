@@ -21,6 +21,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPieRepository, PieRepository>();
 
+// add session service for shopping cart and passing the service provider
+// AddScoped - going to create a ShoppingCart for the request, so all the places with the request that have access to the shopping cart will use that same shopping cart that gets instantiated in the GetCart method.
+builder.Services.AddScoped<IShoppingCart, ShoppingCart>(sp => ShoppingCart.GetCart(sp));
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
+
 // add a service - we bring in framework services that enable MVC in our app
 builder.Services.AddControllersWithViews(); // ensure the app knows about ASP.NET Core MVC
 
@@ -40,6 +46,7 @@ var app = builder.Build();
 // it will find it in the wwwroot folder and return it
 // it will then short circuit the request
 app.UseStaticFiles();
+app.UseSession();
 
 if (app.Environment.IsDevelopment())
 {
