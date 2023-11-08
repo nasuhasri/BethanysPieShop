@@ -23,7 +23,7 @@ public class PieController : Controller
         _categoryRepository = categoryRepository;
     }
 
-    public IActionResult List()
+    public IActionResult ListOld()
     {
         /*
          * ViewBag is dynamic - can add whatever property we want (shareable between views and controllers)
@@ -38,6 +38,29 @@ public class PieController : Controller
         PieListViewModel pieListViewModel = new PieListViewModel(_pieRepository.AllPies, "All Pies");
 
         return View(pieListViewModel);
+    }
+
+    public IActionResult List(string category)
+    {
+        IEnumerable<Pie> pies;
+        string? currentCategory;
+
+        if (string.IsNullOrEmpty(category))
+        {
+            pies = _pieRepository.AllPies.OrderBy(p => p.PieId);
+            currentCategory = "All pies";
+        }
+        else
+        {
+            pies = _pieRepository.AllPies
+                .Where(p => p.Category.CategoryName == category)
+                .OrderBy(p => p.PieId);
+
+            // set currentCategory to the selected category
+            currentCategory = _categoryRepository.AllCategories.FirstOrDefault(c => c.CategoryName == category)?.CategoryName;
+        }
+
+        return View(new PieListViewModel(pies, currentCategory));
     }
 
     public IActionResult Details(int id)
