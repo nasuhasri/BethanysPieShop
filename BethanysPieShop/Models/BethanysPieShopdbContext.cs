@@ -19,4 +19,5 @@ public class BethanysPieShopDbContext : DbContext
     // 1) able to load data in these DbSets, 2) make changes to the data, 3) let the updated data flow back to the db when we want to save
     public DbSet<Category> Categories { get; set; }
     public DbSet<Pie> Pies { get; set; }
+    public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 }
