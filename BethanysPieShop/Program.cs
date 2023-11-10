@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 // CreateBuilder will ensure Kestrel is included and set up IIS integration
 var builder = WebApplication.CreateBuilder(args);
 
+// NOTES: order for services doent matter, only in the middleware the order is matter
+
 /*
  * when using repositories, use AddScoped -> will create a singleton while request is being handled.
  * -- builder.Services.AddScoped
@@ -30,6 +32,10 @@ builder.Services.AddHttpContextAccessor();
 
 // add a service - we bring in framework services that enable MVC in our app
 builder.Services.AddControllersWithViews(); // ensure the app knows about ASP.NET Core MVC
+
+// enable razor pages
+builder.Services.AddRazorPages();
+
 builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
 {
     options.UseSqlServer(
@@ -70,6 +76,10 @@ app.MapDefaultControllerRoute();
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// brings in correct middleware support for razor pages
+// enables Razor PageModel
+app.MapRazorPages();
 
 DbInitializer.Seed(app); // app here means applicationBuilder
 
