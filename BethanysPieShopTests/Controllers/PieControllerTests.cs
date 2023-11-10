@@ -25,8 +25,8 @@ public class PieControllerTests
         // act
         var result = pieController.List("");
 
-        //PieListViewModel pieListViewModel = new PieListViewModel(_pieRepository.AllPies, "All Pies");
-        
+        // return View(new PieListViewModel(pies, currentCategory));
+
         // assert
         // check return type of ViewResult - answer question: did we controller return the ViewResult?
         var viewResult = Assert.IsType<ViewResult>(result);
