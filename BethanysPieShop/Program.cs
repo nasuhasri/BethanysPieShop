@@ -20,6 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 */
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPieRepository, PieRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 // add session service for shopping cart and passing the service provider
 // AddScoped - going to create a ShoppingCart for the request, so all the places with the request that have access to the shopping cart will use that same shopping cart that gets instantiated in the GetCart method.
