@@ -30,7 +30,6 @@ builder.Services.AddHttpContextAccessor();
 
 // add a service - we bring in framework services that enable MVC in our app
 builder.Services.AddControllersWithViews(); // ensure the app knows about ASP.NET Core MVC
-
 builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
 {
     options.UseSqlServer(
