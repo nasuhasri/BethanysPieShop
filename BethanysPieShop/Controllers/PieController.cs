@@ -73,4 +73,10 @@ public class PieController : Controller
 
         return View(pie);
     }
+
+    public IActionResult Search()
+    {
+        // return empty view w/o any data
+        return View();
+    }
 }
