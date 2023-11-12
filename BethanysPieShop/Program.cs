@@ -2,6 +2,7 @@
 
 using BethanysPieShop.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 // CreateBuilder will ensure Kestrel is included and set up IIS integration
 var builder = WebApplication.CreateBuilder(args);
@@ -31,7 +32,14 @@ builder.Services.AddSession();
 builder.Services.AddHttpContextAccessor();
 
 // add a service - we bring in framework services that enable MVC in our app
-builder.Services.AddControllersWithViews(); // ensure the app knows about ASP.NET Core MVC
+// this is needed bcs we want both controllers and views
+// ensure the app knows about ASP.NET Core MVC
+builder.Services.AddControllersWithViews()
+    // ignore loop where pie reference to category and category reference to list of pies
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    });
 
 // enable razor pages
 builder.Services.AddRazorPages();
@@ -41,6 +49,11 @@ builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
 });
+
+// add support for controllers which is required to build an API
+// if only build API, just use AddControllers
+// but since, we have AddControllersWithViews(), we dont need AddControllers()
+//builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -80,6 +93,9 @@ app.MapDefaultControllerRoute();
 // brings in correct middleware support for razor pages
 // enables Razor PageModel
 app.MapRazorPages();
+
+// bring in support for routing required to build api
+//app.MapControllers();
 
 DbInitializer.Seed(app); // app here means applicationBuilder
 
