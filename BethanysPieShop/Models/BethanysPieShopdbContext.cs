@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace BethanysPieShop.Models;
 
-public class BethanysPieShopDbContext : DbContext
+// by inherits from IdentityDbContext, DbContext will also know about users and roles
+public class BethanysPieShopDbContext : IdentityDbContext
 {
     //add constructor - this is required
     public BethanysPieShopDbContext(DbContextOptions<BethanysPieShopDbContext> options) : base(options)

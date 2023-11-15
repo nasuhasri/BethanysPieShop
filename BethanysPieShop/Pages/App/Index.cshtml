@@ -1,0 +1,12 @@
+﻿@page "/app"
+@using BethanysPieShop.Pages.App
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*root component of blazor application*@
+<component type="typeof(AppRouter)" render-mode="Server" />
+
+@*enable blazor server side functionality*@
+<script src="/_framework/blazor.server.js"></script>

@@ -50,6 +50,9 @@ builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
         builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
 });
 
+// enable blazor app
+builder.Services.AddServerSideBlazor();
+
 // add support for controllers which is required to build an API
 // if only build API, just use AddControllers
 // but since, we have AddControllersWithViews(), we dont need AddControllers()
@@ -66,6 +69,7 @@ var app = builder.Build();
 // it will then short circuit the request
 app.UseStaticFiles();
 app.UseSession();
+app.UseAuthentication();
 
 if (app.Environment.IsDevelopment())
 {
@@ -96,6 +100,11 @@ app.MapRazorPages();
 
 // bring in support for routing required to build api
 //app.MapControllers();
+
+// enabled Blazor in the pipeline
+app.MapBlazorHub();
+// everything that arrives on /app/whatever will be handles by /app/index -> page that hosts blazor applicatio
+app.MapFallbackToPage("/app/{*catchall}", "/App/Index");
 
 DbInitializer.Seed(app); // app here means applicationBuilder
 
