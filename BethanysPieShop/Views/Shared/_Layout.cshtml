@@ -48,6 +48,7 @@
                         </ul>
 
                         <vc:shopping-cart-summary></vc:shopping-cart-summary>
+                        <partial name="_LoginPartial" />
                     </div>
                 </div>
             </nav>
@@ -55,6 +56,7 @@
 
         @*will be replaced with the view's dynamic part*@
         @RenderBody()
+        @RenderSection("Scripts", required: false)
     </div>
 </body>
 </html>

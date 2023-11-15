@@ -3,9 +3,15 @@
 using BethanysPieShop.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 // CreateBuilder will ensure Kestrel is included and set up IIS integration
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("BethanysPieShopDbContextConnection") ?? throw new InvalidOperationException("Connection string 'BethanysPieShopDbContextConnection' not found.");
+
+builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
+    options.UseSqlServer(connectionString)
+);
 
 // NOTES: order for services doent matter, only in the middleware the order is matter
 
@@ -44,11 +50,9 @@ builder.Services.AddControllersWithViews()
 // enable razor pages
 builder.Services.AddRazorPages();
 
-builder.Services.AddDbContext<BethanysPieShopDbContext>(options =>
-{
-    options.UseSqlServer(
-        builder.Configuration["ConnectionStrings:BethanysPieShopDbContextConnection"]);
-});
+// authentication
+builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<BethanysPieShopDbContext>();
 
 // enable blazor app
 builder.Services.AddServerSideBlazor();
