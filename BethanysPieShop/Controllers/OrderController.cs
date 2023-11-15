@@ -1,8 +1,11 @@
 ﻿using BethanysPieShop.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BethanysPieShop.Controllers;
 
+// Authorize - make it required for users to sign in in order to access actions on this controller
+[Authorize]
 public class OrderController : Controller
 {
     private readonly IOrderRepository _orderRepository;
@@ -15,6 +18,7 @@ public class OrderController : Controller
     }
 
     // if we dont specify anything, GET request assumed
+    // return checkout form
     public IActionResult Checkout()
     {
         return View();
